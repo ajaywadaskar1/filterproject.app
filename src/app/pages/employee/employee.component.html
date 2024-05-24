@@ -1,0 +1,88 @@
+<div class="container justify-content-center mt-5">
+<div class="row text-center">
+    <div class="col-12">
+        <button class="btn btn-sm btn-success"(click)="isVisible = !isVisible">{{isVisible ? 'Add Employee':'Employee List'}}</button>
+    </div>
+</div>
+
+<div *ngIf="isVisible" class="container w-50 mt-5 border">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Contact</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of EmployeeList ; let sr=index">
+                    <td>{{sr+1}}</td>
+                    <td>{{emp.firstName}} {{emp.lastName}}</td>
+                    <td>{{emp.department}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.gender}}</td>
+                    <td>{{emp.phoneNo}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="onEdit(emp)">Edit</button>
+                        <button class="btn btn-sm btn-danger" (click)="onDelete(emp)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="!isVisible" class="container w-50 mt-5 border  ">
+        <div class="row">
+            <div class=" col mb-3">
+                <label for="fName" class="form-label">First Name</label>
+                <input [(ngModel)]="employeeObject.firstName" type="text" class="form-control" id="fName">
+            </div>
+            <div class="col mb-3">
+                <label for="fName" class="form-label">last Name</label>
+                <input  [(ngModel)]="employeeObject.lastName" type="text" class="form-control" id="fName">
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="employeeObject.email">
+            </div>
+            <div class="col mb-3">
+                <label for="phoneNo" class="form-label">Phone No</label>
+                <input type="text" class="form-control" id="phoneNo" [(ngModel)]="employeeObject.phoneNo" >
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6" >
+            <div class="mb-4 d-flex align-item-center">
+                <div class="form-outline w-100">
+                    <label for="gender" class="form-label">Department</label>&nbsp;&nbsp;
+                    <select class="select form-control-lg" [(ngModel)]="employeeObject.departmentId">
+                        <option value="">Choose Department</option>
+                        <option *ngFor="let dept of department" [value]="dept.deptId">{{dept.deptName}}</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+          <div class="col mt-5">
+            <label for="gender" class="form-label">Gender</label>&nbsp;&nbsp;
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="gender" name="gender" value="Male" [(ngModel)]="employeeObject.gender">
+                <label class="form-check-label" for="gender">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="gender" name="gender" value="Female" [(ngModel)]="employeeObject.gender">
+                <label class="form-check-label" for="gender">Female</label>
+            </div>
+        </div>
+          
+          </div>
+        <button type="submit" class="btn btn-primary mb-3" (click)="onAddEmployee()">Submit</button>
+</div>
+</div>
